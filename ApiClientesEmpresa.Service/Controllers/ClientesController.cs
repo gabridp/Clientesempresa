@@ -30,9 +30,21 @@ namespace ApiClientesEmpresa.Service.Controllers
                     cliente.Cpf = request.Cpf;
                     cliente.DataNascimento = request.DataNascimento;
                 }
-                _clienteRepository.Create(cliente);
-                return StatusCode(201,
-                    new { message = "Cliente cadastrado com sucesso.", cliente });
+                var Tcliente = _clienteRepository.GetByEmail(cliente.Email);
+                if (Tcliente == null)
+                {
+                    if (DateTime.Now.Year -  request.DataNascimento.Year < 18)
+                    {
+                        return StatusCode(400, new { message = "Data nascimento inferior a 18 anos.", cliente });
+
+                    }
+                    _clienteRepository.Create(cliente);
+                    return StatusCode(201, new { message = "Cliente cadastrado com sucesso.", cliente });
+                }else
+                {
+                    return StatusCode(400, new { message = "email duplicado.", cliente });
+
+                }
             }
             catch (Exception e)
             {

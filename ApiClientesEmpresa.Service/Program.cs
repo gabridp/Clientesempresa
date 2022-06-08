@@ -17,6 +17,15 @@ CorsConfiguration.Register(builder);
 SwaggerConfiguration.Register(builder);
 JwtConfiguration.Register(builder);
 
+#region Configuração do CORS
+
+builder.Services.AddCors(s => s.AddPolicy("DefaultPolicy", builder => {
+    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+}));
+
+#endregion
+
+
 var app = builder.Build();
 
 //ativando as configurações do projeto

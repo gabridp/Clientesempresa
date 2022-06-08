@@ -11,5 +11,6 @@ namespace ApiClientesEmpresa.Infra.Data.Interfaces
 
     {
         List<Cliente> GetAll();
+        Cliente GetByEmail(string _email);
     }
 }

@@ -48,5 +48,12 @@ namespace ApiClientesEmpresa.Infra.Data.Repositories
         {
             return _sqlServerContext.Cliente.Find(id);
         }
+        public Cliente GetByEmail(string _email)
+        {
+            return _sqlServerContext.Cliente
+                .FirstOrDefault(c => c.Email.Equals(_email));
+
+            //return _sqlServerContext.Cliente.Find(_email);
+        }
     }
 }
